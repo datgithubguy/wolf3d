@@ -1,0 +1,47 @@
+4*4 char
+si char == '#' tetris
+si char == '.' empty
+si char != '#/.' invalid_map
+
+si strlen(line) != 4 invalid_map
+si line[5] != '\n' invalid_map
+
+size tetris == 4
+
+size_line_tetris == 4
+size_col_tetris == 4
+
+chaque element du tetris doit toucher un autre element du tetris (pas de diagonales)
+
+chaque teris prend 16 bytes
+
+masques binaires
+
+0000000000000000
+
+0000 0000 0000 0000
+
+##..
+.#..
+.#..
+....
+
+devient
+
+1100 0100 0100 0000
+
+masque tetris = 1100010001000000
+
+int a = 0
+
+a &= masque;
+
+//tetris agencés par ordre d'apparition nope
+
+trouver la taille minimale du carré dans lequel les stocker
+les stocker le plus en haut a gauche possible
+
+26 tetris max
+
+26 * 16 = 416
+
