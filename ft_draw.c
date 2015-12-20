@@ -14,7 +14,7 @@
 
 void			ft_machin(t_env *e, int x)
 {
-	e->camera_x = 2.0 * x / e->s_y - 1;
+	e->camera_x = 2.0 * x / e->s_x - 1;
 	e->pos_ray_x = e->pos_player_x;
 	e->pos_ray_y = e->pos_player_y;
 	e->dir_ray_x = e->dir_x + e->plan_cam_x * e->camera_x;

@@ -83,7 +83,7 @@ void	ft_step_sound(t_env *e)
 {
 	static int n = 1;
 
-	if (n % 4 == 3)
+	if (n % 30 == 3)
 		system("afplay dayum.wav -t 0.2 -v 0.1 &");
 	e->x_old = e->pos_player_x;
 	e->y_old = e->pos_player_y;

@@ -26,9 +26,19 @@ unsigned long	give_texture(t_env *e, double hitx, int y)
 				+ (int)hity * 1 * e->size_line_sprt] << 16));
 	if (e->side && e->dir_ray_y > 0)
 		e->color ^= 0x00FF0000;
+	hitx = (hitx / e->sprite_sx) * e->gif_sx;
+	hity = abs((y * 2 - e->s_y + e->height) * (e->gif_sy / 2)\
+				/ e->height - 1);
+	e->tgif = mlx_get_data_addr(e->gif[e->d], &e->gif_bbp, &e->gif_size_line,
+								&e->endian);
 	if (e->side && e->dir_ray_y < 0)
-		e->color ^= 0x0000FF00;
-	hitx = (hitx / e->sprite_sx) * e->ssprite_sx;
+		e->color = ((0x000000FF & e->tgif[(int)hitx * 4\
+				+ (int)hity * 1 * e->gif_size_line + 2])
+				| (0x0000FF00 & e->tgif[(int)hitx * 4\
+				+ (int)hity * 1 * e->gif_size_line + 1] << 8)
+				| (0x00FF0000 & e->tgif[(int)hitx * 4\
+				+ (int)hity * 1 * e->gif_size_line] << 16));
+	hitx = (hitx / e->gif_sx) * e->ssprite_sx;
 	hity = abs((y * 2 - e->s_y + e->height) * (e->ssprite_sy / 2)\
 				/ e->height - 1);
 	if (e->dir_ray_x > 0 && !e->side)

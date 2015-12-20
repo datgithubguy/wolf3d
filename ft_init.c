@@ -46,6 +46,7 @@ void	init_env(t_env *e)
 	e->acceuil = 0;
 	e->pos_menu = 0;
 	e->fps = 1;
+	e->d = 0;
 	e->tex = mlx_get_data_addr(e->anim[2], &e->bbp_sprt, &e->size_line_sprt,
 								&e->endian);
 	ft_bzero(e->tex, e->size_line_sprt * e->sprite_sy);
@@ -53,6 +54,7 @@ void	init_env(t_env *e)
 	e->mooved = 0;
 	e->rotl = 0;
 	e->rotr = 0;
+	giffter(e);
 }
 
 void	get_anims(t_env *e)
@@ -74,6 +76,30 @@ void	get_anims(t_env *e)
 		exit(1);
 }
 
+void	giffter(t_env *e)
+{
+	e->gif[0] = mlx_xpm_file_to_image(e->mlx, "frame_0_delay-0.1s.g.xpm"/*"frame_0.xpm"*/,\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[1] = mlx_xpm_file_to_image(e->mlx, "frame_1_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[2] = mlx_xpm_file_to_image(e->mlx, "frame_2_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[3] = mlx_xpm_file_to_image(e->mlx, "frame_3_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[4] = mlx_xpm_file_to_image(e->mlx, "frame_4_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[5] = mlx_xpm_file_to_image(e->mlx, "frame_5_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[6] = mlx_xpm_file_to_image(e->mlx, "frame_6_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[7] = mlx_xpm_file_to_image(e->mlx, "frame_7_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[8] = mlx_xpm_file_to_image(e->mlx, "frame_8_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+	e->gif[9] = mlx_xpm_file_to_image(e->mlx, "frame_9_delay-0.1s.g.xpm",\
+		&e->gif_sx, &e->gif_sy);
+}
+
 t_env	init_mlx(int s_x, int s_y)
 {
 	t_env	ep;
@@ -84,9 +110,9 @@ t_env	init_mlx(int s_x, int s_y)
 	e->s_y = s_y;
 	if (!(e->mlx = mlx_init()))
 		exit(1);
-	if (!(e->win = mlx_new_window(e->mlx, e->s_x, e->s_y, "Wolf")))
+	if (!(e->win = mlx_new_window(e->mlx, e->s_x, e->s_y + 200, "Wolf")))
 		exit(1);
-	if (!(e->img = mlx_new_image(e->mlx, e->s_x, e->s_y)))
+	if (!(e->img = mlx_new_image(e->mlx, e->s_x, e->s_y + 200)))
 		exit(1);
 	if (!(e->data = mlx_get_data_addr(e->img, &(e->bbp),
 									&(e->size_line), &(e->endian))))

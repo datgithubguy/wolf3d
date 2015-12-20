@@ -22,7 +22,7 @@ int		main(int ac, char **av)
 	init_env(&e);
 	e.map = ft_give_map();
 	e.s = 1;
-//	mlx_do_key_autorepeaton(e.mlx);
+	mlx_do_key_autorepeaton(e.mlx);
 	mlx_hook(e.win, 2, 1L << 0, key_hook, &e);
 	mlx_hook(e.win, 3, 1L << 1, magic, &e);
 	mlx_expose_hook(e.win, expose_hook, &e);
@@ -46,9 +46,15 @@ int		expose_hook(t_env *e)
 	{
 		mlx_clear_window(e->mlx, e->win);
 		ft_bzero(e->data, e->s_x * e->s_y * 4);
+		ft_moove(e);
+		ft_rotat(e);
 		draw(e);
+		draw_hud(e);
 		mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 		ft_put_knife(e);
+		e->d += 1;
+		if (e->d > 9)
+			e->d = 0;
 	}
 	if (!(time(NULL) - t1))
 		++n;
@@ -56,6 +62,32 @@ int		expose_hook(t_env *e)
 	((time(NULL) - t1)) ? (n = 0) : (0);
 	((time(NULL) - t1)) ? (t1 = 0) : (0);
 	return (1);
+}
+
+void	draw_hud(t_env *e)
+{
+	int	x;
+	int	y;
+	int	hp_percent;
+
+	hp_percent = 100;
+	x = 0;
+	y = e->s_y;
+
+//	hp_percent = 50;
+	while (x < e->s_x)
+	{
+		y = e->s_y -1;
+		while (y < (e->s_y + 200))
+		{
+			if (y < (e->s_y + 100) && y > (e->s_y + 50) && x > (e->s_x / 2) - e->s_x/4 && x < (e->s_x / 2) + e->s_x/4 - (hp_percent))
+				put_pix_img_hud(e, x, y, 0xFF);
+			else
+				put_pix_img_hud(e, x, y, 0xFF5010);
+			y+=3;
+		}
+		x+=3;
+	}
 }
 
 void	get_pos(double x, double y, t_env *e, int flagg)
@@ -113,8 +145,8 @@ int		key_hook(int key, t_env *e)
 		e->rotl = 1;
 	ft_menu(e, key);
 	ft_modes(e, key);
-	ft_moove(e, key);
-	ft_rotat(e, key);
+	// ft_moove(e, key);
+	// ft_rotat(e, key);
 	if (fun_key(key))
 		ma_bite(e, fun_key(key));
 	return (0);

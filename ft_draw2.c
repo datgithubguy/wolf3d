@@ -35,6 +35,29 @@ void	put_pix_img(t_env *e, int x, int y, unsigned long color)
 	}
 }
 
+void	put_pix_img_hud(t_env *e, int x, int y, unsigned long color)
+{
+	unsigned int	place;
+	int				r;
+	int				g;
+	int				b;
+
+	r = (color & 0xFFFFFF) >> 16;
+	g = (color & 0xFFFF) >> 8;
+	b = (color & 0xFF);
+	if (x >= 0 && x < e->s_x * 4)
+	{
+		place = y * e->s_x * 4;
+		place += x * 4;
+		if (place < (size_t)((e->s_x * (e->s_y+200)) * 4))
+		{
+			e->data[place] = r;
+			e->data[place + 1] = g;
+			e->data[place + 2] = b;
+		}
+	}
+}
+
 void	ft_real_string_put(t_env *e, char *str, int x, int y)
 {
 	int		a;

@@ -12,14 +12,14 @@
 
 #include "wolf.h"
 
-void	ft_moove(t_env *e, int key)
+void	ft_moove(t_env *e)//, int key)
 {
 	float	truc;
 
-	truc = (0.3 / (float)e->fps) * 50;
+	truc = (0.3 / (float)e->fps) * 20;
 	if (truc >= 0.5)
 		truc = 0.5;
-	if ((key == 126 || e->mooveu == 1) && e->acceuil)
+	if ((e->mooveu == 1) && e->acceuil)
 	{
 		ft_step_sound(e);
 		if (!ft_strcmp("0", e->map[(int)(e->pos_player_x + e->dir_x * truc)]\
@@ -29,7 +29,7 @@ void	ft_moove(t_env *e, int key)
 			[(int)(e->pos_player_y + e->dir_y * truc)]))
 			e->pos_player_y += e->dir_y * truc;
 	}
-	if ((key == 125 || e->mooved == 1) && e->acceuil)
+	if ((e->mooved == 1) && e->acceuil)
 	{
 		ft_step_sound(e);
 		if (!ft_strcmp("0", e->map[(int)(e->pos_player_x - e->dir_x * truc)]\
@@ -41,12 +41,12 @@ void	ft_moove(t_env *e, int key)
 	}
 }
 
-void	ft_rotat(t_env *e, int key)
+void	ft_rotat(t_env *e)//, int key)
 {
 	float	truc;
 
-	truc = ((4 / (float)e->fps) > 1) ? (1) : (4 / (float)e->fps);
-	if ((key == 124 || e->rotr == 1) && e->acceuil)
+	truc = ((10 / (float)e->fps) > 1) ? (1) : (4 / (float)e->fps);
+	if ((e->rotr == 1) && e->acceuil)
 	{
 		e->old_dir_x = e->dir_x;
 		e->dir_x = e->dir_x * cos(-1 * truc) - e->dir_y * sin(-1 * truc);
@@ -57,7 +57,7 @@ void	ft_rotat(t_env *e, int key)
 		e->plan_cam_y = e->old_plan_cam_x * sin(-1 * truc) +\
 		e->plan_cam_y * cos(-1 * truc);
 	}
-	if ((key == 123 || e->rotl == 1) && e->acceuil)
+	if ((e->rotl == 1) && e->acceuil)
 	{
 		e->old_dir_x = e->dir_x;
 		e->dir_x = e->dir_x * cos(1 * truc) - e->dir_y * sin(1 * truc);

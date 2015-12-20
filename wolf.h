@@ -35,7 +35,14 @@ typedef struct	s_env
 	int				sound;
 
 	void			*anim[4];
+	void			*gif[10];
+	int				gif_sx;
+	int				gif_sy;
+	int				gif_size_line;
+	int				gif_bbp;
+	char			*tgif;
 	char			*tex;
+	int				d;
 	char			*bowser;
 	int				a;
 	int				b;
@@ -117,8 +124,8 @@ int				magic(int key, t_env *e);
 char			***three_dims(int fd, int size);
 int				big(int fd);
 int				key_hook(int key, t_env *e);
-void			ft_rotat(t_env *e, int key);
-void			ft_moove(t_env *e, int key);
+void			ft_rotat(t_env *e);//, int key);
+void			ft_moove(t_env *e);//, int key);
 void			ft_step_sound(t_env *e);
 void			ft_modes(t_env *e, int key);
 void			ft_menu(t_env *e, int key);
@@ -152,5 +159,8 @@ int				fun_key_norme(int key);
 void			ft_put_knife(t_env *e);
 void			ennemy(t_env *e);
 void			find_sprite(t_env *e);
+void			giffter(t_env *e);
+void			draw_hud(t_env *e);
+void			put_pix_img_hud(t_env *e, int x, int y, unsigned long color);
 
 #endif
